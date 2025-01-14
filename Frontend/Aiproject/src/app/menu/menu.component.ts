@@ -335,7 +335,7 @@ isSubmitting: boolean = false;
           console.log(response);
           const { predicciones, grafico_arbol } = response;
           this.prediction = predicciones;
-          this.treeImageHolder64 = grafico_arbol;
+          this.treeImageBase64 = grafico_arbol;
           this.isSubmitting = false;
         },
         error: (err) => {
