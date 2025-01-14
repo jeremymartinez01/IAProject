@@ -1,0 +1,75 @@
+<div class="header">
+    <div class="algorithms-container">
+      <mat-form-field appearance="fill">
+        <mat-label>Seleccionar algoritmo</mat-label>
+        <mat-select [(ngModel)]="selectedAlgorithm" (selectionChange)="onAlgorithmChange()">
+          <mat-option *ngFor="let algorithm of algorithms" [value]="algorithm">{{ algorithm }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  
+    <div class="title-container">
+      <h1>Predicción de supervivencia</h1>
+    </div>
+  
+    <div class="toggle-container">
+      <mat-slide-toggle [(ngModel)]="devToolsEnabled">
+        Dev Tools
+      </mat-slide-toggle>
+    </div>
+  </div>
+  
+  <div class="main-container">
+    <div class="form-container">
+      <div *ngIf="devToolsEnabled">
+        <div *ngFor="let characteristic of characteristics">
+          <mat-form-field appearance="fill">
+            <mat-label>{{ characteristic.label }}</mat-label>
+            <input matInput [(ngModel)]="formData[characteristic.key]" type="text"
+                   [placeholder]="'Ingrese ' + characteristic.label"/>
+          </mat-form-field>
+        </div>
+      </div>
+  
+      <div *ngIf="!devToolsEnabled">
+        <div *ngFor="let characteristic of dropdownCharacteristics">
+          <mat-form-field *ngIf="characteristic.options && characteristic.options.length > 0" appearance="fill">
+            <mat-label>{{ characteristic.label }}</mat-label>
+            <mat-select [(ngModel)]="formData[characteristic.key]">
+              <mat-option *ngFor="let option of characteristic.options" [value]="option">
+                {{ option }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+  
+          <mat-form-field *ngIf="!characteristic.options || characteristic.options.length === 0" appearance="fill">
+            <mat-label>{{ characteristic.label }}</mat-label>
+            <input matInput [(ngModel)]="formData[characteristic.key]" type="text"
+                   [placeholder]="'Ingrese ' + characteristic.label"/>
+          </mat-form-field>
+        </div>
+      </div>
+  
+      <div class="button-container">
+        <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="!isFormValid || isSubmitting">
+            Enviar</button>
+      </div>
+    </div>
+  
+    <div class="result-container">
+        <p>Usted probablemente se divorcie en unos: {{ prediction }}</p>
+        <button 
+          mat-raised-button 
+          color="accent" 
+          (click)="showTreeImage()" 
+          [disabled]="!treeImageBase64">
+          Ver 1er árbol de contribución
+        </button>
+        <div *ngIf="treeImageBase64" class="tree-image-container">
+            <img [src]="'data:image/png;base64,' + treeImageBase64" alt="Árbol de Contribución">
+        </div>
+    </div>
+      
+      
+  </div>
+  
