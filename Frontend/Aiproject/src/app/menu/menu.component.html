@@ -16,6 +16,12 @@
       <mat-slide-toggle [(ngModel)]="devToolsEnabled">
         Dev Tools
       </mat-slide-toggle>
+      <p *ngIf="devToolsEnabled" class="warning-message">
+        Ingresar datos correctos o 
+      </p>
+      <p *ngIf="devToolsEnabled" class="warning-message">
+        predicciones pueden ser erróneas
+      </p>
     </div>
   </div>
   
@@ -58,13 +64,6 @@
   
     <div class="result-container">
         <p>Usted probablemente se divorcie en unos: {{ prediction }}</p>
-        <button 
-          mat-raised-button 
-          color="accent" 
-          (click)="showTreeImage()" 
-          [disabled]="!treeImageBase64">
-          Ver 1er árbol de contribución
-        </button>
         <div *ngIf="treeImageBase64" class="tree-image-container">
             <img [src]="'data:image/png;base64,' + treeImageBase64" alt="Árbol de Contribución">
         </div>

@@ -20,6 +20,7 @@ isSubmitting: boolean = false;
   prediction: string = '';
   treeImageBase64: string = ''; 
   treeImageHolder64: string = ''; 
+  showImage: boolean = false;
 
 
   characteristics2: string[] = [
